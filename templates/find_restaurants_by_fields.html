@@ -80,6 +80,7 @@
             background-color: #0056b3;
             color: #fff;
             border-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +89,7 @@
         <label for="streetAddress">Rua:</label>
         <input type="text" id="streetAddress" name="streetAddress">
         
-        <label for="addressLocality">Localidade:</label>
+        <label for="addressLocality">Bairro:</label>
         <input type="text" id="addressLocality" name="addressLocality">
         
         <label for="addressRegion">Região:</label>
@@ -99,21 +100,21 @@
         
         <button type="submit">Buscar</button>
     </form>
-    <h1>List Restaurants</h1>
+    <h1>Listar Restaurantes</h1>
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Street Address</th>
-                <th>Locality</th>
-                <th>Region</th>
-                <th>Country</th>
+                <th>Nome</th>
+                <th>Rua</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>País</th>
                 <th>URL</th>
                 <th>Menu</th>
-                <th>Telephone</th>
-                <th>Price Range</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Telefone</th>
+                <th>Faixa de Preço</th>
+                <th>Editar</th>
+                <th>Apagar</th>
             </tr>
         </thead>
         <tbody>
