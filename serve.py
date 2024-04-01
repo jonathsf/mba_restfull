@@ -1,5 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from model.restaurant import db, Restaurant, Address
+import requests
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@localhost/mba_arq_serv_restfull_python'
@@ -25,7 +27,8 @@ def add_restaurant():
                         addressCountry = new_address_data['addressCountry']
                         )
 
-    new_restaurant = Restaurant(name=data['name'], 
+    new_restaurant = Restaurant(
+                                name=data['name'], 
                                 address=new_address, 
                                 url=data.get('url'), 
                                 telephone=data.get('telephone'), 
@@ -43,22 +46,19 @@ def get_restaurants():
     restaurantes = Restaurant.query.all()
     return jsonify([restaurante.serialize() for restaurante in restaurantes])
 
-@app.route('/restaurant/<int:restaurant_id>', methods=['GET'])
+@app.route('/restaurant/<restaurant_id>', methods=['GET'])
 def get_restaurant(restaurant_id):
     restaurant = Restaurant.query.get_or_404(restaurant_id)
     return jsonify(restaurant.serialize())
 
-@app.route('/restaurant/address', methods=['GET'])
+@app.route('/restaurants/address', methods=['GET'])
 def get_restaurantx():
     
-    data = request.args
-
     address_country_filter = Address.addressCountry == request.args.get('addressCountry') if request.args.get('addressCountry') else True
     address_locality_filter = Address.addressLocality == request.args.get('addressLocality') if request.args.get('addressLocality') else True
     address_region_filter = Address.addressRegion == request.args.get('addressRegion') if request.args.get('addressRegion') else True
     address_street_filter = Address.streetAddress == request.args.get('streetAddress') if request.args.get('streetAddress') else True
-
-    # if data:
+    
     restaurants = Restaurant.query.join(Address).filter(
         address_country_filter,
         address_locality_filter,
@@ -66,9 +66,7 @@ def get_restaurantx():
         address_street_filter
         ).all()
     
-    serialized_restaurants = [restaurant.serialize() for restaurant in restaurants]
-
-
+    serialized_restaurants = [restaurant.serialize() for restaurant in restaurants]   
     return jsonify({'restaurants': serialized_restaurants}), 200
 
 @app.route('/restaurant/<int:restaurant_id>', methods=['PUT'])

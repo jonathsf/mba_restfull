@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        .edit, .delete {
+            border: 1px solid #007bff;
+        }
+        .delete {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+        .edit:hover, .delete:hover {
+            background-color: #0056b3;
+            color: #fff;
+            border-color: #0056b3;
+    </style>
+</head>
+<body>
+    <h1>Buscar Restaurante</h1>
+    <form action="/buscar" method="get">        
+        <label for="streetAddress">Rua:</label>
+        <input type="text" id="streetAddress" name="streetAddress">
+        
+        <label for="addressLocality">Localidade:</label>
+        <input type="text" id="addressLocality" name="addressLocality">
+        
+        <label for="addressRegion">Região:</label>
+        <input type="text" id="addressRegion" name="addressRegion">
+        
+        <label for="addressCountry">País:</label>
+        <input type="text" id="addressCountry" name="addressCountry">
+        
+        <button type="submit">Buscar</button>
+    </form>
+    <h1>List Restaurants</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Street Address</th>
+                <th>Locality</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>URL</th>
+                <th>Menu</th>
+                <th>Telephone</th>
+                <th>Price Range</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for restaurant in data.restaurants %}
+            <tr>
+                <td>{{ restaurant.name }}</td>
+                <td>{{ restaurant.address.streetAddress }}</td>
+                <td>{{ restaurant.address.addressLocality }}</td>
+                <td>{{ restaurant.address.addressRegion }}</td>
+                <td>{{ restaurant.address.addressCountry }}</td>
+                <td>{{ restaurant.url }}</td>
+                <td>{{ restaurant.menu }}</td>
+                <td>{{ restaurant.telephone }}</td>
+                <td>{{ restaurant.priceRange }}</td>
+                <td><a class="edit" href="/editar/{{ restaurant.id }}">Editar</a></td>
+                <td><a class="delete" href="/excluir/{{ restaurant.id }}" onclick="return confirm('Tem certeza que deseja excluir este restaurante?');">Excluir</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br/>
+    <a href="/">Voltar</a>
+</body>
+</html>

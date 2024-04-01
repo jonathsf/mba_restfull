@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Restaurante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Atualizar Restaurante</h1>
+    <form action="/editar/{{ restaurant.id }}" method="post">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required value="{{ restaurant.name }}"><br>       
+        <label for="streetAddress">Rua:</label>
+        <input type="text" id="streetAddress" name="streetAddress" required value="{{ restaurant.address.streetAddress }}"><br>
+        
+        <label for="addressLocality">Localidade:</label>
+        <input type="text" id="addressLocality" name="addressLocality" required value="{{ restaurant.address.addressLocality }}"><br>
+        
+        <label for="addressRegion">Região:</label>
+        <input type="text" id="addressRegion" name="addressRegion" required value="{{ restaurant.address.addressRegion }}"><br>
+        
+        <label for="addressCountry">País:</label>
+        <input type="text" id="addressCountry" name="addressCountry" required value="{{ restaurant.address.addressCountry }}"><br>
+        
+        <label for="url">URL:</label>
+        <input type="url" id="url" name="url" value="{{ restaurant.url }}"><br>
+        
+        <label for="menu">Menu:</label>
+        <input type="text" id="menu" name="menu" value="{{ restaurant.menu }}"><br>
+        
+        <label for="telephone">Telefone:</label>
+        <input type="text" id="telephone" name="telephone" value="{{ restaurant.telephone }}"><br>
+        
+        <label for="priceRange">Faixa de Preço:</label>
+        <input type="text" id="priceRange" name="priceRange" value="{{ restaurant.priceRange }}"><br>
+        
+        <button type="submit">Atualizar Restaurante</button>
+    </form>
+    <br>
+    <a href="/"> Voltar</a>
+    <br>
+    {{ msg }}
+</body>
+</html>
